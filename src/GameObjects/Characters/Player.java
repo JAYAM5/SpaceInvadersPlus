@@ -18,6 +18,7 @@ public class Player extends Ships {
     IShootingStrategy shootingStrategy;
     private boolean leftHeld;
     private boolean rightHeld;
+    Integer deathCount;
 
 
     public Player(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy) {
@@ -26,6 +27,7 @@ public class Player extends Ships {
         this.yLocation = yLocation;
         this.movementStrategy = movementStrategy;
         this.shootingStrategy = shootingStrategy;
+        this.deathCount = 0;
     }
 
     public void move() {
@@ -91,6 +93,24 @@ public class Player extends Ships {
         if (key == KeyEvent.VK_RIGHT) {
             rightHeld = false;
         }
+    }
+
+    @Override
+    public void explode(){
+        ImageIcon playerImg = new ImageIcon("src/images/explosion.png");
+        this.image = playerImg.getImage();
+        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        setExplosionStart();
+        isAlive = false;
+        deathCount +=1;
+    }
+
+    public Integer getDeaths(){
+        return deathCount;
+    }
+
+    public void respawn(){
+
     }
 }
 

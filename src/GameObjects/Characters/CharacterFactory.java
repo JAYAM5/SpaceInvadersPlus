@@ -10,11 +10,9 @@ public class CharacterFactory {
     Integer DEFAULT_ALIEN_X = 360;
     Integer DEFAULT_ALIEN_Y = 10;
     Random rand = new Random();
-    public Alien createAlien(Integer xValue, Integer yValue, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy){
-        return new Alien(xValue,yValue, movementStrategy,shootingStrategy);
-    }
+
     public Alien createAlien(){
-        return new Alien(DEFAULT_ALIEN_X,DEFAULT_ALIEN_Y, new BaseAlienMovement(), new BaseAlienShoot());
+        return new Alien(rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y, new BaseAlienMovement(), new BaseAlienShoot(), rand.nextBoolean());
     }
 
     public Player createPlayer(Integer xValue, Integer yValue, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy){

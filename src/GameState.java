@@ -1,6 +1,8 @@
 import GameObjects.Characters.Alien;
 import GameObjects.Characters.CharacterFactory;
 import GameObjects.Characters.Player;
+import GameObjects.LevelStrategies.ILevel;
+import GameObjects.LevelStrategies.LevelFactory;
 import GameObjects.Projectiles.Projectile;
 
 import javax.swing.*;
@@ -15,6 +17,9 @@ public class GameState extends JPanel {
     private List<Alien> aliens;
     private Player player;
     List<Projectile> projectiles;
+    private ILevel currentLevel;
+
+    LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
 
     private int direction = -1;
@@ -29,11 +34,15 @@ public class GameState extends JPanel {
         player = characterFactory.createPlayer();
         projectiles = new ArrayList<>();
         aliens = new ArrayList<>();
-        aliens.add(characterFactory.createAlien());
+        currentLevel = levelFactory.makeLevel(1);
+        aliens.add(currentLevel.spawn());
     }
 
     public void update(){
         player.move();
+        if (currentLevel.shouldSpawn()) {
+            aliens.add(currentLevel.spawn());
+        }
 
         for (Projectile projectile : projectiles){
             projectile.move();
@@ -41,14 +50,17 @@ public class GameState extends JPanel {
                 projectiles.remove(projectile);
             }
         }
-        for (Alien alien : aliens){
-            alien.move();
-            if (alien.shouldShoot()){
-                projectiles.addAll(alien.shoot());
+        if (!aliens.isEmpty()) {
+            for (Alien alien : aliens) {
+                alien.move();
+                if (alien.shouldShoot()) {
+                    projectiles.addAll(alien.shoot());
+                }
             }
         }
 
         collisions();
+        isGameOver();
         repaint();
     }
 
@@ -72,10 +84,20 @@ public class GameState extends JPanel {
                     projectileY >= player.getYLocation() &&
                     projectileY <= player.getYLocation() + 20) {
                 player.explode();
+                if (player.getDeaths() < 3){
+                    player = characterFactory.createPlayer();
+                }
+                else{
+                    if(isGameOver()){
+
+                    }
+                }
             }
 
         }
         aliens.removeIf(alien -> !alien.getIsAlive() && alien.explosionFinished());
+
+
     }
 
     private void initBoard() {
@@ -89,6 +111,18 @@ public class GameState extends JPanel {
         timer = new Timer(10, gameStateUpdater);
         timer.start();
 
+    }
+
+    private Boolean isGameOver(){
+        for (Alien alien : aliens){
+            if (alien.getYLocation() >= 625){
+                return true;
+            }
+        }
+        if (player.getDeaths() == 3){
+            return true;
+        }
+        return false;
     }
 
     private void drawPlayer(Graphics g) {
@@ -145,4 +179,5 @@ public class GameState extends JPanel {
             player.keyPressed(e);
         }
     }
+
 }

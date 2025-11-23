@@ -1,9 +1,7 @@
 package GameObjects.Characters;
 
-import GameObjects.PlayerStrategies.BasePlayerMovement;
 import GameObjects.PlayerStrategies.IMovementStrategy;
 import GameObjects.PlayerStrategies.IShootingStrategy;
-import GameObjects.PlayerStrategies.PlayerTriShoot;
 import GameObjects.Projectiles.Projectile;
 
 import javax.swing.*;
@@ -21,11 +19,17 @@ public class Alien extends Ships{
 
 
 
-    public Alien(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy){
+    public Alien(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
         this.xLocation = xLocation;
         this.yLocation = yLocation;
         this.movementStrategy = movementStrategy;
         this.shootingStrategy = shootingStrategy;
+        if(defaultDirection == true){
+            this.direction = RIGHT;
+        }
+        else{
+            this.direction = LEFT;
+        }
         initAliens();
     }
 

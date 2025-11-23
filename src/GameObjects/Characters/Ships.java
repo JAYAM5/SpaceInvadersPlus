@@ -63,7 +63,7 @@ public abstract class Ships extends GameObjects {
         return isAlive;
     }
 
-    private void setExplosionStart(){
+    protected void setExplosionStart(){
         explosionStart = System.currentTimeMillis();
     }
 
