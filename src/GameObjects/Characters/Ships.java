@@ -56,6 +56,7 @@ public abstract class Ships extends GameObjects {
         this.image = playerImg.getImage();
         this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         setExplosionStart();
+        isExploding = true;
         isAlive = false;
     }
 
@@ -69,6 +70,10 @@ public abstract class Ships extends GameObjects {
 
     public Boolean explosionFinished(){
         return System.currentTimeMillis() - explosionStart >= 500;
+    }
+
+    public void setIsExploding(Boolean isExploding){
+        this.isExploding = isExploding;
     }
 
 }

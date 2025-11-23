@@ -101,6 +101,7 @@ public class Player extends Ships {
         this.image = playerImg.getImage();
         this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         setExplosionStart();
+        isExploding = true;
         isAlive = false;
         deathCount +=1;
     }
@@ -109,8 +110,23 @@ public class Player extends Ships {
         return deathCount;
     }
 
-    public void respawn(){
+    public void setDeathCount(Integer deathCount){
+        this.deathCount = deathCount;
+    }
 
+    public void respawn(){
+        System.out.println("Respawning player");
+        ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
+        this.image = playerImg.getImage();
+        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        setX(360);
+        isExploding = false;
+        isAlive = true;
+    }
+
+    @Override
+    public Boolean getIsAlive(){
+        return isAlive;
     }
 }
 

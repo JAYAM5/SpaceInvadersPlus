@@ -11,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GameState extends JPanel {
     private Dimension d;
@@ -18,12 +19,13 @@ public class GameState extends JPanel {
     private Player player;
     List<Projectile> projectiles;
     private ILevel currentLevel;
+    Integer levelCounter = 0;
+    Integer levelEnemiesKilled = 0;
+    Boolean levelIsStarting;
+    private long newLevelStart;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
-
-    private int direction = -1;
-    private int deaths = 0;
 
     GameStateUpdater gameStateUpdater;
     Timer timer;
@@ -34,41 +36,54 @@ public class GameState extends JPanel {
         player = characterFactory.createPlayer();
         projectiles = new ArrayList<>();
         aliens = new ArrayList<>();
-        currentLevel = levelFactory.makeLevel(1);
-        aliens.add(currentLevel.spawn());
+        resetLevel();
+
     }
 
     public void update(){
-        player.move();
-        if (currentLevel.shouldSpawn()) {
-            aliens.add(currentLevel.spawn());
-        }
-
-        for (Projectile projectile : projectiles){
-            projectile.move();
-            if (projectile.getXLocation() <= 0) {
-                projectiles.remove(projectile);
+        if (levelIsStarting) {
+            if (System.currentTimeMillis() - newLevelStart >= 3000) {
+                levelIsStarting = false;
+            } else {
+                repaint();
+                return;
             }
         }
-        if (!aliens.isEmpty()) {
-            for (Alien alien : aliens) {
-                alien.move();
-                if (alien.shouldShoot()) {
-                    projectiles.addAll(alien.shoot());
+        if (!isGameOver() && !levelIsStarting) {
+            player.move();
+            if (currentLevel.shouldSpawn()) {
+                aliens.add(currentLevel.spawn());
+            }
+
+            List<Projectile> projectilesToRemove = new ArrayList<>();
+
+            for (Projectile projectile : projectiles) {
+                projectile.move();
+                if (projectile.getXLocation() <= 0) {
+                    projectilesToRemove.add(projectile);
                 }
             }
-        }
+            projectiles.removeAll(projectilesToRemove);
 
-        collisions();
-        isGameOver();
-        repaint();
+            if (!aliens.isEmpty()) {
+                for (Alien alien : aliens) {
+                    alien.move();
+                    if (alien.shouldShoot()) {
+                        projectiles.addAll(alien.shoot());
+                    }
+                }
+            }
+
+            collisions();
+            repaint();
+        }
     }
 
     private void collisions(){
-        for (Projectile projectile : projectiles){
+        for (Projectile projectile : projectiles) {
             Integer projectileX = projectile.getXLocation();
             Integer projectileY = projectile.getYLocation();
-            for (Alien alien : aliens){
+            for (Alien alien : aliens) {
                 if (alien.getIsAlive()) {
                     if (projectileX >= alien.getXLocation() &&
                             projectileX <= alien.getXLocation() + 20 &&
@@ -76,28 +91,96 @@ public class GameState extends JPanel {
                             projectileY <= alien.getYLocation() + 20 &&
                             projectile.getIsPlayerProjectile()) {
                         alien.explode();
+                        levelEnemiesKilled += 1;
                     }
                 }
             }
-            if (projectileX >= player.getXLocation() &&
-                    projectileX <= player.getXLocation() + 20 &&
-                    projectileY >= player.getYLocation() &&
-                    projectileY <= player.getYLocation() + 20) {
-                player.explode();
-                if (player.getDeaths() < 3){
-                    player = characterFactory.createPlayer();
-                }
-                else{
-                    if(isGameOver()){
-
-                    }
+            if (player.getIsAlive()) {
+                if (projectileX >= player.getXLocation() &&
+                        projectileX <= player.getXLocation() + 20 &&
+                        projectileY >= player.getYLocation() &&
+                        projectileY <= player.getYLocation() + 20) {
+                    System.out.println("Projectile " + projectile + "is at " + projectileX + ", " + projectileY);
+                    System.out.println("Player hit by " + projectile);
+                    System.out.println("Player death count: " + player.getDeaths());
+                    player.explode();
                 }
             }
-
         }
+        levelCheck();
         aliens.removeIf(alien -> !alien.getIsAlive() && alien.explosionFinished());
+    }
+
+    private void levelCheck() {
+        Boolean groundCheck = false;
+        if (!player.getIsAlive()) {
+            if (player.explosionFinished()) {
+                resetLevel();
+            }
+        }
+        for (Alien alien : aliens){
+            if (alien.getYLocation() >= 625 && alien.getIsAlive()){
+                player.setDeathCount(player.getDeaths() + 1);
+                System.out.println("Alien has hit ground, reset level");
+                groundCheck = true;
+            }
+        }
+        if (groundCheck){
+            resetLevel();
+        }
+
+        if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
+            nextLevel();
+        }
+
+    }
+
+    private void nextLevel() {
+        levelCounter++;
+        resetLevel();
+    }
+
+    private void resetLevel() {
+
+        System.out.println("Resetting everything");
+        currentLevel = levelFactory.makeLevel(levelCounter);
+        player.respawn();
+        aliens.clear();
+        projectiles.clear();
+        levelEnemiesKilled = 0;
+
+        newLevelStart = System.currentTimeMillis();
+        levelIsStarting = true;
+    }
+
+    private Boolean levelIsStarting() {
+        if (!levelIsStarting) return false;
+
+        if (System.currentTimeMillis() - newLevelStart >= 3000) {
+            levelIsStarting = false;
+            return false;
+        }
+        return true;
+    }
 
 
+    private void startNewLevel() {
+        levelIsStarting = true;
+        newLevelStart = System.currentTimeMillis();
+    }
+
+    private void levelDisplay(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(0, 0, d.width, d.height);
+        g.setColor(Color.green);
+
+        g.setFont(new Font("Arial", Font.BOLD, 50));
+        String message = "Level " + levelCounter;
+
+        FontMetrics metrics = g.getFontMetrics();
+        int x = (getWidth() - metrics.stringWidth(message)) / 2;
+        int y = getHeight() / 2;
+        g.drawString(message, x, y);
     }
 
     private void initBoard() {
@@ -114,12 +197,7 @@ public class GameState extends JPanel {
     }
 
     private Boolean isGameOver(){
-        for (Alien alien : aliens){
-            if (alien.getYLocation() >= 625){
-                return true;
-            }
-        }
-        if (player.getDeaths() == 3){
+        if (player.getDeaths() > 2){
             return true;
         }
         return false;
@@ -145,10 +223,16 @@ public class GameState extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        doDrawing(g);
+        if (isGameOver()){
+            gameOverScreen(g);
+        }
+        else if (levelIsStarting){
+            levelDisplay(g);
+        }
+        else{
+            doDrawing(g);
+        }
     }
-
-
 
     private void doDrawing(Graphics g){
         g.setColor(Color.black);
@@ -158,6 +242,20 @@ public class GameState extends JPanel {
         drawPlayer(g);
         drawAliens(g);
         drawProjectile(g);
+    }
+
+    private void gameOverScreen(Graphics g){
+        g.setColor(Color.black);
+        g.fillRect(0, 0, d.width, d.height);
+        g.setColor(Color.green);
+
+        g.setFont(new Font("Arial", Font.BOLD, 50));
+        String message = "GAME OVER";
+
+        FontMetrics metrics = g.getFontMetrics();
+        int x = (getWidth() - metrics.stringWidth(message)) / 2;
+        int y = getHeight() / 2;
+        g.drawString(message, x, y);
     }
 
 

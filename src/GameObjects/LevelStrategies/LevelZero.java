@@ -8,15 +8,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class LevelOne implements ILevel{
-    Integer enemyLevelCount = 10;
+public class LevelZero implements ILevel{
+    Integer enemyLevelCount = 1;
     CharacterFactory characterFactory = new CharacterFactory();
     Integer spawnRate = 100;
     Random rand = new Random();
     List<Alien> levelEnemies = new ArrayList<>();
     Integer spawnCounter = 0;
 
-    public LevelOne(){
+    public LevelZero(){
         for(Integer i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
@@ -51,3 +51,5 @@ public class LevelOne implements ILevel{
         return enemyLevelCount;
     }
 }
+
+

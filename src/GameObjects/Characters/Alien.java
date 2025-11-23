@@ -37,7 +37,6 @@ public class Alien extends Ships{
     public void move() {
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
         setY(yLocation += movementStrategy.getYMovementSpeed() / 2);
-        System.out.println("alien position is: " + getYLocation());
         if (xLocation < -10) {
             setX(-10);
             direction = RIGHT;
