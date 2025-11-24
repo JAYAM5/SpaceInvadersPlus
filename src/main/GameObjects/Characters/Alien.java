@@ -3,6 +3,7 @@ package main.GameObjects.Characters;
 import main.GameObjects.PlayerStrategies.IMovementStrategy;
 import main.GameObjects.PlayerStrategies.IShootingStrategy;
 import main.GameObjects.Projectiles.Projectile;
+import main.GameObjects.Weapons.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,6 +82,10 @@ public class Alien extends Ships{
 
     public Boolean getIsItem(){
         return isItem;
+    }
+
+    public Item dropItem(){
+        return null;
     }
 
 }

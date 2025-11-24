@@ -87,22 +87,26 @@ public class GameState extends JPanel {
             for (Alien alien : aliens) {
                 if (alien.getIsAlive()) {
                     if (projectileX >= alien.getXLocation() &&
-                            projectileX <= alien.getXLocation() + 20 &&
+                            projectileX <= alien.getXLocation() + 50 &&
                             projectileY >= alien.getYLocation() &&
-                            projectileY <= alien.getYLocation() + 20 &&
+                            projectileY <= alien.getYLocation() + 50 &&
                             projectile.getIsPlayerProjectile()) {
                         alien.explode();
                         if(!alien.getIsItem()) {
                             levelEnemiesKilled += 1;
+                        }
+                        else{
+                            player.addToInventory(alien.dropItem());
+                            player.setShootingStrategy(alien.dropItem());
                         }
                     }
                 }
             }
             if (player.getIsAlive()) {
                 if (projectileX >= player.getXLocation() &&
-                        projectileX <= player.getXLocation() + 20 &&
+                        projectileX <= player.getXLocation() + 50 &&
                         projectileY >= player.getYLocation() &&
-                        projectileY <= player.getYLocation() + 20) {
+                        projectileY <= player.getYLocation() + 50) {
                     System.out.println("Projectile " + projectile + "is at " + projectileX + ", " + projectileY);
                     System.out.println("Player hit by " + projectile);
                     System.out.println("Player death count: " + player.getDeaths());

@@ -8,7 +8,10 @@ import java.util.List;
 //import main.GameObjects.PlayerStrategies.BasePlayerStrategy;
 import main.GameObjects.PlayerStrategies.IMovementStrategy;
 import main.GameObjects.PlayerStrategies.IShootingStrategy;
+import main.GameObjects.PlayerStrategies.RailgunPlayerShoot;
 import main.GameObjects.Projectiles.Projectile;
+import main.GameObjects.Weapons.Item;
+import main.GameObjects.Weapons.Railgun;
 
 public class Player extends Ships {
 
@@ -18,6 +21,7 @@ public class Player extends Ships {
     private boolean leftHeld;
     private boolean rightHeld;
     Integer deathCount;
+    Item inventory;
 
 
     public Player(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy) {
@@ -126,6 +130,20 @@ public class Player extends Ships {
     @Override
     public Boolean getIsAlive(){
         return isAlive;
+    }
+
+    public void addToInventory(Item item){
+        inventory = item;
+    }
+
+    public void setShootingStrategy(Item item){
+        switch(item.getType()){
+            case "Railgun": setShootingStrategy(new RailgunPlayerShoot());
+        }
+    }
+
+    public void setShootingStrategy(IShootingStrategy strategy){
+        this.shootingStrategy = strategy;
     }
 }
 

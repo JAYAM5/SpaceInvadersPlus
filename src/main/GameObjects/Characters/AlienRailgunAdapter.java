@@ -2,7 +2,11 @@ package main.GameObjects.Characters;
 
 import main.GameObjects.PlayerStrategies.IMovementStrategy;
 import main.GameObjects.PlayerStrategies.IShootingStrategy;
+import main.GameObjects.Weapons.Item;
 import main.GameObjects.Weapons.Railgun;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class AlienRailgunAdapter extends Alien {
     Railgun railgun;
@@ -24,7 +28,12 @@ public class AlienRailgunAdapter extends Alien {
 
     @Override
     public void explode(){
-        railgun.explode();
+        ImageIcon playerImg = new ImageIcon("src/images/sonic.png");
+        this.image = playerImg.getImage();
+        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        setExplosionStart();
+        isExploding = true;
+        isAlive = false;
     }
 
     public void setIsExploding(Boolean isExploding){
@@ -33,7 +42,7 @@ public class AlienRailgunAdapter extends Alien {
 
     @Override
     protected void setExplosionStart(){
-        railgun.explosionStart = System.currentTimeMillis();
+        explosionStart = System.currentTimeMillis();
     }
 
     public Boolean explosionFinished(){
@@ -58,5 +67,10 @@ public class AlienRailgunAdapter extends Alien {
     @Override
     public void setY(Integer yValue){
         railgun.setY(yValue);
+    }
+
+    @Override
+    public Item dropItem(){
+        return railgun;
     }
 }

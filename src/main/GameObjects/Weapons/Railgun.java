@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class Railgun {
+public class Railgun extends Item {
     Image image;
     Integer xLocation;
     int yLocation;
@@ -80,11 +80,6 @@ public class Railgun {
     }
 
     public void explode(){
-        ImageIcon playerImg = new ImageIcon("src/images/sonic.png");
-        this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        setExplosionStart();
-        isExploding = true;
     };
 
     protected void setExplosionStart(){
@@ -97,5 +92,9 @@ public class Railgun {
 
     public void setMovementStrategy(IMovementStrategy movementStrategy){
         this.movementStrategy = movementStrategy;
+    }
+
+    public String getType(){
+        return "Railgun";
     }
 }
