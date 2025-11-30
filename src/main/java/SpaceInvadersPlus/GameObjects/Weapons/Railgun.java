@@ -45,7 +45,6 @@ public class Railgun extends Item {
     }
 
     public void move() {
-        System.out.println("Railgun moving from its own class.");
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
         setY(yLocation += movementStrategy.getYMovementSpeed() / 2);
         if (xLocation < -10) {

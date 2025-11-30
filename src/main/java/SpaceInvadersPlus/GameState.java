@@ -23,12 +23,13 @@ public class GameState extends JPanel {
     private Player player;
     List<Projectile> projectiles;
     private ILevel currentLevel;
-    Integer levelCounter = 0;
+    Integer levelCounter = 1;
     Integer levelEnemiesKilled = 0;
     Boolean levelIsStarting;
     private long newLevelStart;
     Boolean levelCompleted = false;
     AudioObserver audioObserver = new AudioObserver();
+    Boolean groundCheck = false;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
@@ -68,7 +69,7 @@ public class GameState extends JPanel {
 
             for (Projectile projectile : projectiles) {
                 projectile.move();
-                if (projectile.getXLocation() <= 0) {
+                if (projectile.getYLocation() < 0) {
                     projectilesToRemove.add(projectile);
                 }
             }
@@ -91,6 +92,8 @@ public class GameState extends JPanel {
     }
 
     private void collisions(){
+        List<Projectile> projectilesToRemove = new ArrayList<>();
+
         for (Projectile projectile : projectiles) {
             Integer projectileX = projectile.getXLocation();
             Integer projectileY = projectile.getYLocation();
@@ -102,6 +105,7 @@ public class GameState extends JPanel {
                             projectileY <= alien.getYLocation() + 50 &&
                             projectile.getIsPlayerProjectile()) {
                         alien.explode();
+                        projectilesToRemove.add(projectile);
                         if(!alien.getIsItem()) {
                             levelEnemiesKilled += 1;
                         }
@@ -117,33 +121,40 @@ public class GameState extends JPanel {
                         projectileX <= player.getXLocation() + 50 &&
                         projectileY >= player.getYLocation() &&
                         projectileY <= player.getYLocation() + 50) {
-                    System.out.println("Projectile " + projectile + "is at " + projectileX + ", " + projectileY);
-                    System.out.println("Player hit by " + projectile);
-                    System.out.println("Player death count: " + player.getDeaths());
                     player.explode();
                 }
             }
         }
-        aliens.removeIf(alien -> !alien.getIsAlive() && alien.explosionFinished());
+        projectiles.removeAll(projectilesToRemove);
+        if (groundCheck && !isExplosionOccurring()){
+            resetLevel();
+        }
+        else {
+            aliens.removeIf(alien -> !alien.getIsAlive() && alien.explosionFinished());
+        }
     }
 
     private void levelCheck() {
-        Boolean groundCheck = false;
         if (!player.getIsAlive()) {
             if (player.explosionFinished()) {
                 resetLevel();
             }
         }
         for (Alien alien : aliens){
-            if (alien.getYLocation() >= 625 && alien.getIsAlive() && !alien.getIsItem()){
+            if (alien.getYLocation() >= 625 && alien.getIsAlive() && !alien.getIsItem()) {
                 player.setDeathCount(player.getDeaths() + 1);
-                System.out.println("Alien has hit ground, reset level");
                 groundCheck = true;
+                alien.explode();
+//                if (alien.explosionFinished() && groundCheck) {
+//                    System.out.println("Hit this line");
+//                    resetLevel();
+//                }
             }
         }
-        if (groundCheck){
-            resetLevel();
-        }
+//        if (groundCheck){
+//            System.out.println("IsExploding is: " + isExplosionOccurring());
+//            resetLevel();
+//        }
 
         if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
             if (!isExplosionOccurring()) {
@@ -167,6 +178,7 @@ public class GameState extends JPanel {
         else{
             player.respawn();
         }
+        groundCheck = false;
         levelCompleted = false;
         EventBusSingleton.getInstance().postMessage(EventType.LevelStart, "Starting level " + levelCounter);
         currentLevel = levelFactory.makeLevel(levelCounter);
@@ -189,7 +201,7 @@ public class GameState extends JPanel {
         if (!player.explosionFinished()){
             isExplosionOccuring = true;
         }
-
+        System.out.println("Explosion is occurring is: " + isExplosionOccuring);
         return isExplosionOccuring;
     }
 

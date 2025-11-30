@@ -2,7 +2,7 @@ package SpaceInvadersPlus.GameObjects.PlayerStrategies;
 
 public class BaseAlienMovement implements IMovementStrategy {
     Integer baseXMovementSpeed = 1;
-    Integer baseYMovementSpeed = 2;
+    Integer baseYMovementSpeed = 5;
     Integer difficulty = 5;
 
     @Override

@@ -76,9 +76,4 @@ public abstract class Ships extends GameObjects {
     public Boolean explosionFinished(){
         return System.currentTimeMillis() - explosionStart >= 500;
     }
-
-    public void setIsExploding(Boolean isExploding){
-        this.isExploding = isExploding;
-    }
-
 }

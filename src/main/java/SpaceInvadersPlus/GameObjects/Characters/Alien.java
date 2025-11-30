@@ -38,14 +38,15 @@ public class Alien extends Ships{
 
     public void move() {
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
-        setY(yLocation += movementStrategy.getYMovementSpeed() / 2);
         if (xLocation < -10) {
             setX(-10);
             direction = RIGHT;
+            setY(yLocation += movementStrategy.getYMovementSpeed());
         }
         if (xLocation > 748) {
             setX(748);
             direction = LEFT;
+            setY(yLocation += movementStrategy.getYMovementSpeed());
         }
     }
 

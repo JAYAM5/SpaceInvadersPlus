@@ -24,7 +24,6 @@ public class AlienRailgunAdapter extends Alien {
     }
 
     public void move() {
-        System.out.println("Railgun moving from adapter.");
         railgun.move();
     }
 

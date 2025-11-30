@@ -8,27 +8,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class LevelZero implements ILevel{
-    Integer enemyLevelCount = 1;
-    Integer levelItemCount = 1;
+public class LevelFour implements ILevel {
+    Integer enemyLevelCount = 15;
     CharacterFactory characterFactory = new CharacterFactory();
     Integer spawnRate = 100;
     Random rand = new Random();
     List<Alien> levelEnemies = new ArrayList<>();
     Integer spawnCounter = 0;
 
-    public LevelZero(){
+    public LevelFour(){
         for(Integer i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
-        levelEnemies.add(characterFactory.createRailgunAdapter());
         Collections.shuffle(levelEnemies);
     }
 
     @Override
     public Boolean shouldSpawn() {
         if ((rand.nextInt(spawnRate) + 1) < 2){
-            if (spawnCounter - levelItemCount < enemyLevelCount) {
+            if (spawnCounter < enemyLevelCount) {
                 return true;
             }
             else{
@@ -53,5 +51,3 @@ public class LevelZero implements ILevel{
         return enemyLevelCount;
     }
 }
-
-
