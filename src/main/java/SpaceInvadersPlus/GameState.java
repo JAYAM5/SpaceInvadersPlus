@@ -270,6 +270,19 @@ public class GameState extends JPanel {
         }
     }
 
+    private void livesDisplay(Graphics g) {
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        String message = "Lives remaining: " + (3 - player.getDeaths());
+
+        FontMetrics metrics = g.getFontMetrics();
+        int x = (getWidth() - metrics.stringWidth(message)) / 2;
+        x = 20;
+        int y = getHeight() / 2;
+        y = 130;
+        g.drawString(message, x, y);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -291,10 +304,13 @@ public class GameState extends JPanel {
         g.fillRect(0, 0, d.width, d.height);
         g.setColor(Color.green);
 
+        livesDisplay(g);
         drawPlayer(g);
         drawAliens(g);
         drawProjectile(g);
     }
+
+
 
     private void gameOverScreen(Graphics g){
         g.setColor(Color.black);
