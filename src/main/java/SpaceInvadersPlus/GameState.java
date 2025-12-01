@@ -277,8 +277,6 @@ public class GameState extends JPanel {
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         String message = "Lives remaining: " + (3 - player.getDeaths());
 
-        FontMetrics metrics = g.getFontMetrics();
-
         g.drawString(message, LIVES_X_LOCATION, LIVES_Y_LOCATION);
     }
 
