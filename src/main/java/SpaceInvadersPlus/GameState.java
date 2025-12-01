@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState extends JPanel {
+    private final int LIVES_Y_LOCATION = 130;
+    private final int LIVES_X_LOCATION = 20;
     private Dimension d;
     private List<Alien> aliens;
     private Player player;
@@ -276,11 +278,8 @@ public class GameState extends JPanel {
         String message = "Lives remaining: " + (3 - player.getDeaths());
 
         FontMetrics metrics = g.getFontMetrics();
-        int x = (getWidth() - metrics.stringWidth(message)) / 2;
-        x = 20;
-        int y = getHeight() / 2;
-        y = 130;
-        g.drawString(message, x, y);
+
+        g.drawString(message, LIVES_X_LOCATION, LIVES_Y_LOCATION);
     }
 
     @Override
