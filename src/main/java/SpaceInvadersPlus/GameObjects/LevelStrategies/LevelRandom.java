@@ -31,9 +31,6 @@ public class LevelRandom implements ILevel{
             levelEnemies.add(characterFactory.createRandomItemAdapter());
         }
 
-        //test
-        System.out.println("Level enemies: " + enemyLevelCount + " Level items: " + levelItemCount);
-
         Collections.shuffle(levelEnemies);
     }
 

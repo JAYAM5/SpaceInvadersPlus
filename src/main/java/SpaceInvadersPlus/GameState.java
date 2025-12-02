@@ -166,8 +166,6 @@ public class GameState extends JPanel {
 //            resetLevel();
 //        }
 
-        //test
-        //System.out.println("enemies killed: " + levelEnemiesKilled + " current level enemy count: " + currentLevel.levelEnemyCount());
         if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
             if (!isExplosionOccurring()) {
                 levelCompleted = true;

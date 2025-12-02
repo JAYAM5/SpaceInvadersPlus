@@ -21,7 +21,8 @@ public class LevelOne implements ILevel{
         for(Integer i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
-        levelEnemies.add(characterFactory.createRailgunAdapter());
+        levelEnemies.add(characterFactory.createTrigunAdapter());
+
         Collections.shuffle(levelEnemies);
     }
 

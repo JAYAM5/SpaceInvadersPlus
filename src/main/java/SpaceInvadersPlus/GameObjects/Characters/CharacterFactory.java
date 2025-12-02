@@ -38,6 +38,11 @@ public class CharacterFactory {
                 new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());
     }
 
+    public Alien createTrigunAdapter(){
+        return new AlienItemAdapter(itemFactory.createTrigun(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
+                new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());
+    }
+
     public Alien createRandomItemAdapter(){
         return new AlienItemAdapter(itemFactory.createRandomItem(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
                 new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());

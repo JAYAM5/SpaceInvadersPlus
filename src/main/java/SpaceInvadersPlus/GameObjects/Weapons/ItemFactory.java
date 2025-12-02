@@ -16,6 +16,9 @@ public class ItemFactory {
     public Shoe createShoe(){
         return new Shoe();
     }
+    public Trigun createTrigun(){
+        return new Trigun();
+    }
     public Item createRandomItem(){
         Random rand = new Random();
         enum ItemEnum {
