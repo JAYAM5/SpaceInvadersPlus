@@ -8,7 +8,7 @@ public class LevelFactory {
             case 2 -> new LevelTwo();
             case 3 -> new LevelThree();
             case 4 -> new LevelFour();
-            default -> new LevelOne();
+            default -> new LevelRandom();
         };
     }
 }

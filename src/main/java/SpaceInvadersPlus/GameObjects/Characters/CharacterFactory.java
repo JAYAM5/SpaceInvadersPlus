@@ -29,12 +29,17 @@ public class CharacterFactory {
     }
 
     public Alien createRailgunAdapter(){
-        return new AlienRailgunAdapter(itemFactory.createRailgun(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
+        return new AlienItemAdapter(itemFactory.createRailgun(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
                 new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());
     }
 
     public Alien createShoeAdapter(){
-        return new AlienShoeAdapter(itemFactory.createShoe(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
+        return new AlienItemAdapter(itemFactory.createShoe(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
+                new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());
+    }
+
+    public Alien createRandomItemAdapter(){
+        return new AlienItemAdapter(itemFactory.createRandomItem(), rand.nextInt(748 - (-10) + 1) + -10,DEFAULT_ALIEN_Y,
                 new BaseAlienMovement(), new NoShoot(), rand.nextBoolean());
     }
 }

@@ -10,21 +10,21 @@ import SpaceInvadersPlus.GameObjects.Weapons.Railgun;
 import javax.swing.*;
 import java.awt.*;
 
-public class AlienRailgunAdapter extends Alien {
-    Railgun railgun;
-    public AlienRailgunAdapter(Railgun railgun, Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
+public class AlienItemAdapter extends Alien {
+    Item item;
+    public AlienItemAdapter(Item item, Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
         super(xLocation,yLocation, movementStrategy, shootingStrategy, defaultDirection);
-        this.railgun = railgun;
-        this.image = railgun.getImage();
-        railgun.setX(xLocation);
-        railgun.setY(yLocation);
-        railgun.setMovementStrategy(this.movementStrategy);
+        this.item = item;
+        this.image = item.getImage();
+        item.setX(xLocation);
+        item.setY(yLocation);
+        item.setMovementStrategy(this.movementStrategy);
         isItem = true;
         isAlive = true;
     }
 
     public void move() {
-        railgun.move();
+        item.move();
     }
 
     @Override
@@ -53,26 +53,26 @@ public class AlienRailgunAdapter extends Alien {
 
     @Override
     public Integer getXLocation(){
-        return railgun.getXLocation();
+        return item.getXLocation();
     }
 
     @Override
     public Integer getYLocation(){
-        return railgun.getYLocation();
+        return item.getYLocation();
     }
 
     @Override
     public void setX(Integer xValue){
-        railgun.setX(xValue);
+        item.setX(xValue);
     }
 
     @Override
     public void setY(Integer yValue){
-        railgun.setY(yValue);
+        item.setY(yValue);
     }
 
     @Override
     public Item dropItem(){
-        return railgun;
+        return item;
     }
 }
