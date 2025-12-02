@@ -128,6 +128,7 @@ public class Player extends Ships {
         isAlive = true;
         setInventory(null);
         setShootingStrategy(new BasePlayerShoot());
+        setMovementStrategy(new BasePlayerMovement());
     }
 
     public void respawnWithItem(){

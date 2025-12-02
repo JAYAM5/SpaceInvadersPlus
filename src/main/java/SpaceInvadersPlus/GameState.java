@@ -121,7 +121,6 @@ public class GameState extends JPanel {
                         else{
                             player.setInventory(alien.dropItem());
                             player.setShootingStrategy(alien.dropItem());
-                            //maybe wrong
                             player.setMovementStrategy(alien.dropItem());
                         }
                     }
