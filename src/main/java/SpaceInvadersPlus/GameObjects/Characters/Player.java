@@ -66,6 +66,8 @@ public class Player extends Ships {
     }
 
     public List<Projectile> shoot() {
+        //test
+        System.out.println("strat= " + shootingStrategy.getClass());
         return shootingStrategy.shoot(this);
     }
 
@@ -151,14 +153,23 @@ public class Player extends Ships {
     }
 
     public void setShootingStrategy(Item item){
+        //test
+        System.out.println("Item: " + item.getType());
         switch(item.getType()){
-            case "Railgun": setShootingStrategy(new RailgunPlayerShoot());
+            case "Railgun":
+                setShootingStrategy(new RailgunPlayerShoot());
+                break;
+            case "Trigun":
+                setShootingStrategy(new PlayerTriShoot());
+                break;
         }
     }
 
     public void setMovementStrategy(Item item){
         switch(item.getType()){
-            case "Shoe": setMovementStrategy(new FastPlayerMovement());
+            case "Shoe":
+                setMovementStrategy(new FastPlayerMovement());
+                break;
         }
     }
 

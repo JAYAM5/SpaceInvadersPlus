@@ -20,7 +20,8 @@ public class ItemFactory {
         Random rand = new Random();
         enum ItemEnum {
             RAILGUN,
-            SHOE
+            SHOE,
+            TRIGUN
         }
 
         int pick = rand.nextInt(ItemEnum.values().length);
@@ -29,6 +30,7 @@ public class ItemFactory {
         return switch (randomItem) {
             case RAILGUN -> new Railgun();
             case SHOE -> new Shoe();
+            case TRIGUN -> new Trigun();
         };
     }
 }

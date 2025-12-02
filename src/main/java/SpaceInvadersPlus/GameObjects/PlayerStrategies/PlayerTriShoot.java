@@ -13,6 +13,8 @@ public class PlayerTriShoot implements IShootingStrategy {
     long shotCooldown = 700;
 
     public List<Projectile> shoot(Ships ship) {
+        //test
+        System.out.println("THIS WAS CALLED OOPS");
         List<Projectile> returnList = new ArrayList<>();
         returnList.add(projectileFactory.createBaseProjectile(ship.getXLocation(), ship.getYLocation()));
         returnList.add(projectileFactory.createBaseProjectile(ship.getXLocation() + 5, ship.getYLocation()));
