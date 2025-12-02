@@ -10,7 +10,7 @@ import SpaceInvadersPlus.GameObjects.Weapons.ItemFactory;
 
 public class CharacterFactory {
     Integer DEFAULT_PLAYER_X = 360;
-    Integer DEFAULT_PLAYER_Y = 625;
+    Integer DEFAULT_PLAYER_Y = 575;
     Integer DEFAULT_ALIEN_X = 360;
     Integer DEFAULT_ALIEN_Y = 10;
     Random rand = new Random();

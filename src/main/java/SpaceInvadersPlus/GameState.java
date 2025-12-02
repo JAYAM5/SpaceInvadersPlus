@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState extends JPanel {
-    private final int LIVES_Y_LOCATION = 130;
+    private final int LIVES_Y_LOCATION = 655;
     private final int LIVES_X_LOCATION = 20;
     private Dimension d;
     private List<Alien> aliens;
@@ -168,7 +168,7 @@ public class GameState extends JPanel {
 //        }
 
         //test
-        System.out.println("enemies killed: " + levelEnemiesKilled + " current level enemy count: " + currentLevel.levelEnemyCount());
+        //System.out.println("enemies killed: " + levelEnemiesKilled + " current level enemy count: " + currentLevel.levelEnemyCount());
         if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
             if (!isExplosionOccurring()) {
                 levelCompleted = true;
@@ -283,12 +283,14 @@ public class GameState extends JPanel {
         }
     }
 
-    private void livesDisplay(Graphics g) {
+    private void drawHUD(Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         String message = "Lives remaining: " + (3 - player.getDeaths());
 
         g.drawString(message, LIVES_X_LOCATION, LIVES_Y_LOCATION);
+
+        g.drawLine(0, 625, 1000, 625);
     }
 
     @Override
@@ -312,7 +314,7 @@ public class GameState extends JPanel {
         g.fillRect(0, 0, d.width, d.height);
         g.setColor(Color.green);
 
-        livesDisplay(g);
+        drawHUD(g);
         drawPlayer(g);
         drawAliens(g);
         drawProjectile(g);
