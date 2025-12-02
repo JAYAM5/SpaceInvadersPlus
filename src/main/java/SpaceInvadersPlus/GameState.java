@@ -8,6 +8,7 @@ import SpaceInvadersPlus.GameObjects.Characters.CharacterFactory;
 import SpaceInvadersPlus.GameObjects.Characters.Player;
 import SpaceInvadersPlus.GameObjects.LevelStrategies.ILevel;
 import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelFactory;
+import SpaceInvadersPlus.GameObjects.PlayerStrategies.FastPlayerMovement;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 
 import javax.swing.*;
@@ -89,6 +90,12 @@ public class GameState extends JPanel {
             collisions();
             levelCheck();
             nextLevel();
+
+//            // delete this
+//            if (levelCounter > 1) {
+//                player.setMovementStrategy(new FastPlayerMovement());
+//            }
+
             repaint();
         }
     }
@@ -114,6 +121,8 @@ public class GameState extends JPanel {
                         else{
                             player.setInventory(alien.dropItem());
                             player.setShootingStrategy(alien.dropItem());
+                            //maybe wrong
+                            player.setMovementStrategy(alien.dropItem());
                         }
                     }
                 }
@@ -158,6 +167,8 @@ public class GameState extends JPanel {
 //            resetLevel();
 //        }
 
+        //test
+        System.out.println("enemies killed: " + levelEnemiesKilled + " current level enemy count: " + currentLevel.levelEnemyCount());
         if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
             if (!isExplosionOccurring()) {
                 levelCompleted = true;

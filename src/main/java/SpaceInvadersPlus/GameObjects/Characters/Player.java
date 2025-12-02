@@ -8,10 +8,7 @@ import java.util.List;
 //import main.SpaceInvadersPlus.GameObjects.PlayerStrategies.BasePlayerStrategy;
 import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.BasePlayerShoot;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.IMovementStrategy;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.IShootingStrategy;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.RailgunPlayerShoot;
+import SpaceInvadersPlus.GameObjects.PlayerStrategies.*;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 import SpaceInvadersPlus.GameObjects.Weapons.Item;
 
@@ -158,8 +155,18 @@ public class Player extends Ships {
         }
     }
 
+    public void setMovementStrategy(Item item){
+        switch(item.getType()){
+            case "Shoe": setMovementStrategy(new FastPlayerMovement());
+        }
+    }
+
     public void setShootingStrategy(IShootingStrategy strategy){
         this.shootingStrategy = strategy;
+    }
+
+    public void setMovementStrategy(IMovementStrategy strategy) {
+        this.movementStrategy = strategy;
     }
 }
 
