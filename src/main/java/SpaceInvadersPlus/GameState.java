@@ -20,6 +20,7 @@ import java.util.List;
 public class GameState extends JPanel {
     private final int SCORE_Y_LOCATION = 655;
     private final int SCORE_X_LOCATION = 15;
+    private final int HUD_Y_LOCATION = 625;
     private Dimension d;
     private List<Alien> aliens;
     private Player player;
@@ -284,7 +285,7 @@ public class GameState extends JPanel {
     private void drawHUD(Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawLine(0, 625, 1000, 625);
+        g.drawLine(0, HUD_Y_LOCATION, 1000, HUD_Y_LOCATION);
 
         String message = "Score: " + gameScore;
         g.drawString(message, SCORE_X_LOCATION, SCORE_Y_LOCATION);

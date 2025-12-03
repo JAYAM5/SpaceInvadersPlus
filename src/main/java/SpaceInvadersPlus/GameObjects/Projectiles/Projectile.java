@@ -9,6 +9,13 @@ public abstract class Projectile extends GameObjects {
     Integer movementVelocity;
     Image image;
     Boolean isPlayerProjectile;
+    Angle angle;
+
+    public enum Angle {
+        NONE,
+        LEFT,
+        RIGHT
+    }
 
     public void move(){}
     public void setImage(Image image) {

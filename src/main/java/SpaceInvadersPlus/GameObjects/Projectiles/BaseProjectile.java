@@ -7,16 +7,31 @@ public class BaseProjectile extends Projectile {
 
     Projectile currentProjectile;
 
-    public BaseProjectile(Integer xLocation, Integer yLocation){
+    public BaseProjectile(Integer xLocation, Integer yLocation, Angle angle){
         initBaseProjectile();
         movementVelocity = -5;
         setX(xLocation);
         setY(yLocation);
         isPlayerProjectile = true;
+        this.angle = angle;
     }
 
     public void move(){
         setY(yLocation += movementVelocity);
+
+        switch (angle) {
+            case RIGHT:
+                setX(xLocation += movementVelocity / 2);
+                break;
+
+            case LEFT:
+                setX(xLocation -= movementVelocity / 2);
+                break;
+
+            case NONE:
+                break;
+        }
+
     }
 
     private void initBaseProjectile() {

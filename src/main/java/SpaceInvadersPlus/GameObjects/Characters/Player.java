@@ -158,6 +158,9 @@ public class Player extends Ships {
             case "Trigun":
                 setShootingStrategy(new PlayerTriShoot());
                 break;
+            case "Wideshot":
+                setShootingStrategy(new WideshotPlayerShoot());
+                break;
         }
     }
 

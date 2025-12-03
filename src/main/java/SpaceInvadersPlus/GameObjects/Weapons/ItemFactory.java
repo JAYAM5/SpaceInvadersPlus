@@ -19,12 +19,16 @@ public class ItemFactory {
     public Trigun createTrigun(){
         return new Trigun();
     }
+    public Wideshot createWideshot(){
+        return new Wideshot();
+    }
     public Item createRandomItem(){
         Random rand = new Random();
         enum ItemEnum {
             RAILGUN,
             SHOE,
-            TRIGUN
+            TRIGUN,
+            WIDESHOT
         }
 
         int pick = rand.nextInt(ItemEnum.values().length);
@@ -34,6 +38,7 @@ public class ItemFactory {
             case RAILGUN -> new Railgun();
             case SHOE -> new Shoe();
             case TRIGUN -> new Trigun();
+            case WIDESHOT -> new Wideshot();
         };
     }
 }
