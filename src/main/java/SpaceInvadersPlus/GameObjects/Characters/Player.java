@@ -10,17 +10,17 @@ import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.*;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
-import SpaceInvadersPlus.GameObjects.Weapons.Item;
+import SpaceInvadersPlus.GameObjects.Items.Item;
 
 public class Player extends Ships {
 
-    Ships currentShip;
     IMovementStrategy movementStrategy;
     IShootingStrategy shootingStrategy;
     private boolean leftHeld;
     private boolean rightHeld;
     Integer deathCount;
     Item inventory;
+    private final int respawn_X = 360;
 
 
     public Player(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy) {
@@ -42,11 +42,11 @@ public class Player extends Ships {
         else{
             setX(getXLocation());
         }
-        if (xLocation < -10) {
-            setX(-10);
+        if (xLocation < leftEdge) {
+            setX(leftEdge);
         }
-        if (xLocation > 748) {
-            setX(748);
+        if (xLocation > rightEdge) {
+            setX(rightEdge);
         }
     }
 
@@ -57,18 +57,9 @@ public class Player extends Ships {
         this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     }
 
-    public void setShip(Ships ship) {
-        currentShip = ship;
-    }
-
-    public Ships getShip() {
-        return currentShip;
-    }
-
     public List<Projectile> shoot() {
         return shootingStrategy.shoot(this);
     }
-
 
     public void keyPressed(KeyEvent event) {
         int key = event.getKeyCode();
@@ -123,7 +114,7 @@ public class Player extends Ships {
         ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
         this.image = playerImg.getImage();
         this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        setX(360);
+        setX(respawn_X);
         isExploding = false;
         isAlive = true;
         setInventory(null);
@@ -136,7 +127,7 @@ public class Player extends Ships {
         ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
         this.image = playerImg.getImage();
         this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        setX(360);
+        setX(respawn_X);
         isExploding = false;
         isAlive = true;
     }
@@ -165,10 +156,8 @@ public class Player extends Ships {
     }
 
     public void setMovementStrategy(Item item){
-        switch(item.getType()){
-            case "Shoe":
-                setMovementStrategy(new FastPlayerMovement());
-                break;
+        if (item.getType().equals("Shoe")) {
+            setMovementStrategy(new FastPlayerMovement());
         }
     }
 

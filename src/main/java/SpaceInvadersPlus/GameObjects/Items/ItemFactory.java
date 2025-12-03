@@ -1,4 +1,4 @@
-package SpaceInvadersPlus.GameObjects.Weapons;
+package SpaceInvadersPlus.GameObjects.Items;
 
 import java.util.Random;
 

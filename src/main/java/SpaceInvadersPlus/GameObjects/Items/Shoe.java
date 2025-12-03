@@ -1,4 +1,4 @@
-package SpaceInvadersPlus.GameObjects.Weapons;
+package SpaceInvadersPlus.GameObjects.Items;
 
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IMovementStrategy;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
@@ -33,12 +33,12 @@ public class Shoe extends Item {
     public void move() {
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
         setY(yLocation += movementStrategy.getYMovementSpeed() / 2);
-        if (xLocation < -10) {
-            setX(-10);
+        if (xLocation < leftEdge) {
+            setX(leftEdge);
             direction = RIGHT;
         }
-        if (xLocation > 748) {
-            setX(748);
+        if (xLocation > rightEdge) {
+            setX(rightEdge);
             direction = LEFT;
         }
     }

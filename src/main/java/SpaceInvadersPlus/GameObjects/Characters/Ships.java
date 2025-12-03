@@ -17,6 +17,9 @@ public abstract class Ships extends GameObjects {
     Boolean isAlive = true;
     Boolean isExploding = false;
     protected long explosionStart;
+    final int explosionDuration = 500;
+    final int rightEdge = 748;
+    final int leftEdge = -10;
 
 
     public List<Projectile> shoot() {
@@ -68,6 +71,6 @@ public abstract class Ships extends GameObjects {
     }
 
     public Boolean explosionFinished(){
-        return System.currentTimeMillis() - explosionStart >= 500;
+        return System.currentTimeMillis() - explosionStart >= explosionDuration;
     }
 }

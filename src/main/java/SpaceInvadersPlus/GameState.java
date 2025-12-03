@@ -21,6 +21,7 @@ public class GameState extends JPanel {
     private final static int SCORE_Y_LOCATION = 655;
     private final static int SCORE_X_LOCATION = 15;
     private final static int HUD_Y_LOCATION = 625;
+    private final static int LIVES_X_LOCATION = 625;
     private Dimension d;
     private final List<Alien> aliens;
     private final Player player;
@@ -36,6 +37,10 @@ public class GameState extends JPanel {
     private int gameScore = 0;
     private final static int collisionRightFactor = 25;
     private final static int collisionLeftFactor = 25;
+    private final static int collisionUpFactor = 50;
+    private final static int levelDelay = 3000;
+    private final static int scorePerKill = 10;
+    private final static int alienPlayerCollisionPoint = 625;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
@@ -58,7 +63,7 @@ public class GameState extends JPanel {
 
     public void update(){
         if (levelIsStarting) {
-            if (System.currentTimeMillis() - newLevelStart >= 3000) {
+            if (System.currentTimeMillis() - newLevelStart >= levelDelay) {
                 levelIsStarting = false;
             } else {
                 repaint();
@@ -109,13 +114,13 @@ public class GameState extends JPanel {
                     if (projectileX >= alien.getXLocation() - collisionLeftFactor &&
                             projectileX <= alien.getXLocation() + collisionRightFactor &&
                             projectileY >= alien.getYLocation() &&
-                            projectileY <= alien.getYLocation() + 50 &&
+                            projectileY <= alien.getYLocation() + collisionUpFactor &&
                             projectile.getIsPlayerProjectile()) {
                         alien.explode();
                         projectilesToRemove.add(projectile);
                         if(!alien.getIsItem()) {
                             levelEnemiesKilled += 1;
-                            gameScore += 10;
+                            gameScore += scorePerKill;
                         }
                         else{
                             player.setInventory(alien.dropItem());
@@ -129,7 +134,7 @@ public class GameState extends JPanel {
                 if (projectileX >= player.getXLocation() - collisionLeftFactor &&
                         projectileX <= player.getXLocation() + collisionRightFactor &&
                         projectileY >= player.getYLocation() &&
-                        projectileY <= player.getYLocation() + 50) {
+                        projectileY <= player.getYLocation() + collisionUpFactor) {
                     player.explode();
                 }
             }
@@ -150,7 +155,7 @@ public class GameState extends JPanel {
             }
         }
         for (Alien alien : aliens){
-            if (alien.getYLocation() >= 625 && alien.getIsAlive() && !alien.getIsItem()) {
+            if (alien.getYLocation() >= alienPlayerCollisionPoint && alien.getIsAlive() && !alien.getIsItem()) {
                 player.setDeathCount(player.getDeaths() + 1);
                 groundCheck = true;
                 alien.explode();
@@ -261,7 +266,7 @@ public class GameState extends JPanel {
         g.drawString(message, SCORE_X_LOCATION, SCORE_Y_LOCATION);
 
         message = "Lives remaining: " + (3 - player.getDeaths());
-        g.drawString(message, SCORE_X_LOCATION + 610, SCORE_Y_LOCATION);
+        g.drawString(message,  LIVES_X_LOCATION, SCORE_Y_LOCATION);
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class LevelFour implements ILevel {
     Integer enemyLevelCount = 15;
+    Integer levelItemCount = 1;
     CharacterFactory characterFactory = new CharacterFactory();
     Integer spawnRate = 100;
     Random rand = new Random();
@@ -20,13 +21,14 @@ public class LevelFour implements ILevel {
         for(int i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
+        levelEnemies.add(characterFactory.createWideshotAdapter());
         Collections.shuffle(levelEnemies);
     }
 
     @Override
     public Boolean shouldSpawn() {
         if ((rand.nextInt(spawnRate) + 1) < 2){
-            return spawnCounter < enemyLevelCount;
+            return spawnCounter - levelItemCount < enemyLevelCount;
         }
         else{
             return false;

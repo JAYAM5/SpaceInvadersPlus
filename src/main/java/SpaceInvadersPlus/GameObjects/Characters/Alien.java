@@ -3,7 +3,7 @@ package SpaceInvadersPlus.GameObjects.Characters;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IMovementStrategy;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IShootingStrategy;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
-import SpaceInvadersPlus.GameObjects.Weapons.Item;
+import SpaceInvadersPlus.GameObjects.Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +17,6 @@ public class Alien extends Ships{
     Integer LEFT = -1;
     Integer direction = RIGHT;
     Boolean isItem = false;
-
-
 
     public Alien(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
         this.xLocation = xLocation;
@@ -37,13 +35,13 @@ public class Alien extends Ships{
 
     public void move() {
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
-        if (xLocation < -10) {
-            setX(-10);
+        if (xLocation < leftEdge) {
+            setX(leftEdge);
             direction = RIGHT;
             setY(yLocation += movementStrategy.getYMovementSpeed());
         }
-        if (xLocation > 748) {
-            setX(748);
+        if (xLocation > rightEdge) {
+            setX(rightEdge);
             direction = LEFT;
             setY(yLocation += movementStrategy.getYMovementSpeed());
         }

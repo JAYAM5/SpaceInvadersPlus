@@ -4,14 +4,14 @@ import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IMovementStrategy;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IShootingStrategy;
-import SpaceInvadersPlus.GameObjects.Weapons.Item;
-import SpaceInvadersPlus.GameObjects.Weapons.Railgun;
+import SpaceInvadersPlus.GameObjects.Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AlienItemAdapter extends Alien {
     Item item;
+    private static final int explosionDuration = 500;
     public AlienItemAdapter(Item item, Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
         super(xLocation,yLocation, movementStrategy, shootingStrategy, defaultDirection);
         this.item = item;
@@ -38,17 +38,13 @@ public class AlienItemAdapter extends Alien {
         EventBusSingleton.getInstance().postMessage(EventType.ItemExplosion, "Player has received powerup.");
     }
 
-    public void setIsExploding(Boolean isExploding){
-        this.isExploding = isExploding;
-    }
-
     @Override
     protected void setExplosionStart(){
         explosionStart = System.currentTimeMillis();
     }
 
     public Boolean explosionFinished(){
-        return System.currentTimeMillis() - explosionStart >= 500;
+        return System.currentTimeMillis() - explosionStart >= explosionDuration;
     }
 
     @Override
