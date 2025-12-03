@@ -2,7 +2,7 @@ package SpaceInvadersPlus.GameObjects.PlayerStrategies;
 
 import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
-import SpaceInvadersPlus.GameObjects.Characters.Ships;
+import SpaceInvadersPlus.GameObjects.Characters.Ship;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 import SpaceInvadersPlus.GameObjects.Projectiles.ProjectileFactory;
 
@@ -14,7 +14,7 @@ public class RailgunPlayerShoot implements IShootingStrategy{
     long lastShot;
     long shotCooldown = 100;
 
-    public List<Projectile> shoot(Ships ship){
+    public List<Projectile> shoot(Ship ship){
         List<Projectile> returnList = new ArrayList<>();
         if(shouldShoot()){
             returnList.add(projectileFactory.createBaseProjectile(ship.getXLocation(), ship.getYLocation()));

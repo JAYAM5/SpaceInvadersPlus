@@ -1,6 +1,6 @@
 package SpaceInvadersPlus.GameObjects.PlayerStrategies;
 
-import SpaceInvadersPlus.GameObjects.Characters.Ships;
+import SpaceInvadersPlus.GameObjects.Characters.Ship;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 import SpaceInvadersPlus.GameObjects.Projectiles.ProjectileFactory;
 
@@ -13,7 +13,7 @@ public class BaseAlienShoot implements IShootingStrategy{
     Integer difficulty = 10;
     Random rand = new Random();
 
-    public List<Projectile> shoot(Ships ship){
+    public List<Projectile> shoot(Ship ship){
         List<Projectile> returnList = new ArrayList<>();
         returnList.add(projectileFactory.createBaseAlienProjectile(ship.getXLocation(), ship.getYLocation()));
         return returnList;

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public abstract class Ships extends GameObjects {
+public abstract class Ship extends GameObjects {
 
     Integer xLocation;
     Integer yLocation;

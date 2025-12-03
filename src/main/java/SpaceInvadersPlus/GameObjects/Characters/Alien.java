@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class Alien extends Ships{
+public class Alien extends Ship {
 
     IMovementStrategy movementStrategy;
     IShootingStrategy shootingStrategy;

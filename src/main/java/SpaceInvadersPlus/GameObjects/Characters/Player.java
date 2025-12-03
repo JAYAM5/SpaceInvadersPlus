@@ -12,7 +12,7 @@ import SpaceInvadersPlus.GameObjects.PlayerStrategies.*;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 import SpaceInvadersPlus.GameObjects.Items.Item;
 
-public class Player extends Ships {
+public class Player extends Ship {
 
     IMovementStrategy movementStrategy;
     IShootingStrategy shootingStrategy;
