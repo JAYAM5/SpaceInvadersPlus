@@ -10,7 +10,6 @@ import java.awt.*;
 import java.util.List;
 
 public class Alien extends Ships{
-    Ships currentShip;
 
     IMovementStrategy movementStrategy;
     IShootingStrategy shootingStrategy;
@@ -26,7 +25,7 @@ public class Alien extends Ships{
         this.yLocation = yLocation;
         this.movementStrategy = movementStrategy;
         this.shootingStrategy = shootingStrategy;
-        if(defaultDirection == true){
+        if(defaultDirection){
             this.direction = RIGHT;
         }
         else{
@@ -57,13 +56,6 @@ public class Alien extends Ships{
         this.image = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     }
 
-    public void setShip(Ships ship) {
-        currentShip = ship;
-    }
-
-    public Ships getShip() {
-        return currentShip;
-    }
 
     public Boolean shouldShoot(){
        return shootingStrategy.shouldShoot();
@@ -71,14 +63,6 @@ public class Alien extends Ships{
 
     public List<Projectile> shoot() {
         return shootingStrategy.shoot(this);
-    }
-
-    public void setMovementStrategy(IMovementStrategy movementStrategy){
-        this.movementStrategy = movementStrategy;
-    }
-
-    public void setShootingStrategy(IShootingStrategy shootingStrategy){
-        this.shootingStrategy = shootingStrategy;
     }
 
     public Boolean getIsItem(){

@@ -1,24 +1,17 @@
 package SpaceInvadersPlus.Events;
 
-import jdk.jfr.Event;
-
-import SpaceInvadersPlus.Events.EventType;
-import SpaceInvadersPlus.Events.IObserver;
 import javax.sound.sampled.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
 
 
 public class EventBusSingleton {
     private static EventBusSingleton instance;
 
-    private static Map<EventType, List<IObserver>> observers = new HashMap<>();
+    private static final Map<EventType, List<IObserver>> observers = new HashMap<>();
 
     private EventBusSingleton() {
         for (EventType type : EventType.values()) {
