@@ -3,7 +3,6 @@ package SpaceInvadersPlus.GameObjects.PlayerStrategies;
 public class BaseAlienMovement implements IMovementStrategy {
     Integer baseXMovementSpeed = 1;
     Integer baseYMovementSpeed = 5;
-    Integer difficulty = 5;
 
     @Override
     public Integer getXMovementSpeed(){
@@ -13,11 +12,6 @@ public class BaseAlienMovement implements IMovementStrategy {
     @Override
     public Integer getYMovementSpeed(){
         return baseYMovementSpeed;
-    }
-
-    @Override
-    public Integer getDifficulty(){
-        return difficulty;
     }
 
 }

@@ -1,7 +1,6 @@
 package SpaceInvadersPlus.GameObjects.Weapons;
 
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.IMovementStrategy;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.IShootingStrategy;
 
 import java.awt.*;
 
@@ -10,7 +9,6 @@ public abstract class Item {
     int yLocation;
     Image image;
     IMovementStrategy movementStrategy;
-    IShootingStrategy shootingStrategy;
     Integer RIGHT = 1;
     Integer LEFT = -1;
     Integer direction = RIGHT;
@@ -20,7 +18,6 @@ public abstract class Item {
     }
 
     public void setX(Integer x) {
-
         this.xLocation = x;
     }
 

@@ -37,20 +37,11 @@ public class LevelRandom implements ILevel{
     @Override
     public Boolean shouldSpawn() {
         if ((rand.nextInt(spawnRate) + 1) < 2){
-            if (spawnCounter - levelItemCount < enemyLevelCount) {
-                return true;
-            }
-            else{
-                return false;
-            }
+            return spawnCounter - levelItemCount < enemyLevelCount;
         }
         else{
             return false;
         }
-    }
-
-    public Integer getSpawnRate(){
-        return spawnRate;
     }
 
     public Alien spawn(){

@@ -17,7 +17,7 @@ public class LevelFour implements ILevel {
     Integer spawnCounter = 0;
 
     public LevelFour(){
-        for(Integer i = 0; i < enemyLevelCount; i++){
+        for(int i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
         Collections.shuffle(levelEnemies);
@@ -26,20 +26,11 @@ public class LevelFour implements ILevel {
     @Override
     public Boolean shouldSpawn() {
         if ((rand.nextInt(spawnRate) + 1) < 2){
-            if (spawnCounter < enemyLevelCount) {
-                return true;
-            }
-            else{
-                return false;
-            }
+            return spawnCounter < enemyLevelCount;
         }
         else{
             return false;
         }
-    }
-
-    public Integer getSpawnRate(){
-        return spawnRate;
     }
 
     public Alien spawn(){

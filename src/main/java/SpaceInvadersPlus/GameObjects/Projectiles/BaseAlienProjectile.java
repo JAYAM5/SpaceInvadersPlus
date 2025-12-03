@@ -5,8 +5,6 @@ import java.awt.*;
 
 public class BaseAlienProjectile extends Projectile {
 
-    Projectile currentProjectile;
-
     public BaseAlienProjectile(Integer xLocation, Integer yLocation){
         initBaseAlienProjectile();
         movementVelocity = 5;
@@ -27,7 +25,4 @@ public class BaseAlienProjectile extends Projectile {
 
     }
 
-    public Projectile getCurrentProjectile(){
-        return currentProjectile;
-    }
 }

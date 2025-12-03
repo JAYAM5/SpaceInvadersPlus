@@ -1,6 +1,5 @@
 package SpaceInvadersPlus.GameObjects.PlayerStrategies;
 
-import SpaceInvadersPlus.Events.AudioObserver;
 import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
 import SpaceInvadersPlus.GameObjects.Characters.Ships;

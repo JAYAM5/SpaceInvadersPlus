@@ -15,10 +15,6 @@ public class BasePlayerMovement implements IMovementStrategy {
         return baseYMovementSpeed;
     }
 
-    @Override
-    public Integer getDifficulty(){
-        return 1;
-    }
 
 
 }

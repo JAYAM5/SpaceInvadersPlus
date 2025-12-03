@@ -6,6 +6,6 @@ import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 import java.util.List;
 
 public interface IShootingStrategy {
-    public List<Projectile> shoot(Ships ship);
-    public Boolean shouldShoot();
+    List<Projectile> shoot(Ships ship);
+    Boolean shouldShoot();
 }

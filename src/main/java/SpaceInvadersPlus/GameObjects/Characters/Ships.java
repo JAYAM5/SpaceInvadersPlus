@@ -1,11 +1,9 @@
 package SpaceInvadersPlus.GameObjects.Characters;
 
-import SpaceInvadersPlus.Events.AudioObserver;
 import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
 import SpaceInvadersPlus.GameObjects.GameObjects;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
-import jdk.jfr.Event;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +14,8 @@ public abstract class Ships extends GameObjects {
     Integer xLocation;
     Integer yLocation;
     Image image;
-    Integer DEFAULT_VELOCITY = 0;
     Boolean isAlive = true;
-    Integer movementXVelocity = DEFAULT_VELOCITY;
-    Integer movementYVelocity = DEFAULT_VELOCITY;
     Boolean isExploding = false;
-    Integer explosionDuration = 30;
     protected long explosionStart;
 
 

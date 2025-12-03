@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState extends JPanel {
-    private final int SCORE_Y_LOCATION = 655;
-    private final int SCORE_X_LOCATION = 15;
-    private final int HUD_Y_LOCATION = 625;
+    private final static int SCORE_Y_LOCATION = 655;
+    private final static int SCORE_X_LOCATION = 15;
+    private final static int HUD_Y_LOCATION = 625;
     private Dimension d;
-    private List<Alien> aliens;
-    private Player player;
+    private final List<Alien> aliens;
+    private final Player player;
     List<Projectile> projectiles;
     private ILevel currentLevel;
     Integer levelCounter = 1;
@@ -34,8 +34,8 @@ public class GameState extends JPanel {
     AudioObserver audioObserver = new AudioObserver();
     Boolean groundCheck = false;
     private int gameScore = 0;
-    private final int collisionRightFactor = 25;
-    private final int collisionLeftFactor = 25;
+    private final static int collisionRightFactor = 25;
+    private final static int collisionLeftFactor = 25;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
@@ -154,16 +154,8 @@ public class GameState extends JPanel {
                 player.setDeathCount(player.getDeaths() + 1);
                 groundCheck = true;
                 alien.explode();
-//                if (alien.explosionFinished() && groundCheck) {
-//                    System.out.println("Hit this line");
-//                    resetLevel();
-//                }
             }
         }
-//        if (groundCheck){
-//            System.out.println("IsExploding is: " + isExplosionOccurring());
-//            resetLevel();
-//        }
 
         if (levelEnemiesKilled == currentLevel.levelEnemyCount()){
             if (!isExplosionOccurring()) {
@@ -181,7 +173,7 @@ public class GameState extends JPanel {
     }
 
     private void resetLevel() {
-        if (levelCompleted == true){
+        if (levelCompleted){
             player.respawnWithItem();
         }
         else{
@@ -200,7 +192,7 @@ public class GameState extends JPanel {
     }
 
     private boolean isExplosionOccurring(){
-        Boolean isExplosionOccuring = false;
+        boolean isExplosionOccuring = false;
 
         for (Alien alien : aliens){
             if (!alien.explosionFinished()) {
@@ -212,22 +204,6 @@ public class GameState extends JPanel {
         }
         System.out.println("Explosion is occurring is: " + isExplosionOccuring);
         return isExplosionOccuring;
-    }
-
-    private Boolean levelIsStarting() {
-        if (!levelIsStarting) return false;
-
-        if (System.currentTimeMillis() - newLevelStart >= 3000) {
-            levelIsStarting = false;
-            return false;
-        }
-        return true;
-    }
-
-
-    private void startNewLevel() {
-        levelIsStarting = true;
-        newLevelStart = System.currentTimeMillis();
     }
 
     private void levelDisplay(Graphics g) {
@@ -257,10 +233,7 @@ public class GameState extends JPanel {
     }
 
     private Boolean isGameOver(){
-        if (player.getDeaths() > 2){
-            return true;
-        }
-        return false;
+        return player.getDeaths() > 2;
     }
 
     private void drawPlayer(Graphics g) {
@@ -318,8 +291,6 @@ public class GameState extends JPanel {
         drawProjectile(g);
     }
 
-
-
     private void gameOverScreen(Graphics g){
         g.setColor(Color.black);
         g.fillRect(0, 0, d.width, d.height);
@@ -339,8 +310,6 @@ public class GameState extends JPanel {
         g.drawString(message, x, y + 65);
     }
 
-
-
     private class TAdapter extends KeyAdapter {
 
         @Override
@@ -351,7 +320,7 @@ public class GameState extends JPanel {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            Integer key = e.getKeyCode();
+            int key = e.getKeyCode();
             if (key == KeyEvent.VK_SPACE){
                 projectiles.addAll(player.shoot());
             }

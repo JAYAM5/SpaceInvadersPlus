@@ -18,7 +18,7 @@ public class LevelThree implements ILevel {
     Integer spawnCounter = 0;
 
     public LevelThree(){
-        for(Integer i = 0; i < enemyLevelCount; i++){
+        for(int i = 0; i < enemyLevelCount; i++){
             levelEnemies.add(characterFactory.createAlien());
         }
         levelEnemies.add(characterFactory.createShoeAdapter());
@@ -28,20 +28,11 @@ public class LevelThree implements ILevel {
     @Override
     public Boolean shouldSpawn() {
         if ((rand.nextInt(spawnRate) + 1) < 2){
-            if (spawnCounter - levelItemCount < enemyLevelCount) {
-                return true;
-            }
-            else{
-                return false;
-            }
+            return spawnCounter - levelItemCount < enemyLevelCount;
         }
         else{
             return false;
         }
-    }
-
-    public Integer getSpawnRate(){
-        return spawnRate;
     }
 
     public Alien spawn(){

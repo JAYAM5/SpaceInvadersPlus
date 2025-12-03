@@ -4,7 +4,7 @@ import SpaceInvadersPlus.GameObjects.Characters.Alien;
 
 public interface ILevel {
 
-    public Boolean shouldSpawn();
-    public Alien spawn();
-    public Integer levelEnemyCount();
+    Boolean shouldSpawn();
+    Alien spawn();
+    Integer levelEnemyCount();
 }
