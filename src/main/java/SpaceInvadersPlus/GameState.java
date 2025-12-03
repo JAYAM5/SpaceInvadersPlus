@@ -34,6 +34,8 @@ public class GameState extends JPanel {
     AudioObserver audioObserver = new AudioObserver();
     Boolean groundCheck = false;
     private int gameScore = 0;
+    private final int collisionRightFactor = 25;
+    private final int collisionLeftFactor = 25;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
@@ -92,11 +94,6 @@ public class GameState extends JPanel {
             levelCheck();
             nextLevel();
 
-//            // delete this
-//            if (levelCounter > 1) {
-//                player.setMovementStrategy(new FastPlayerMovement());
-//            }
-
             repaint();
         }
     }
@@ -109,8 +106,8 @@ public class GameState extends JPanel {
             Integer projectileY = projectile.getYLocation();
             for (Alien alien : aliens) {
                 if (alien.getIsAlive()) {
-                    if (projectileX >= alien.getXLocation() &&
-                            projectileX <= alien.getXLocation() + 50 &&
+                    if (projectileX >= alien.getXLocation() - collisionLeftFactor &&
+                            projectileX <= alien.getXLocation() + collisionRightFactor &&
                             projectileY >= alien.getYLocation() &&
                             projectileY <= alien.getYLocation() + 50 &&
                             projectile.getIsPlayerProjectile()) {
@@ -129,8 +126,8 @@ public class GameState extends JPanel {
                 }
             }
             if (player.getIsAlive()) {
-                if (projectileX >= player.getXLocation() &&
-                        projectileX <= player.getXLocation() + 50 &&
+                if (projectileX >= player.getXLocation() - collisionLeftFactor &&
+                        projectileX <= player.getXLocation() + collisionRightFactor &&
                         projectileY >= player.getYLocation() &&
                         projectileY <= player.getYLocation() + 50) {
                     player.explode();

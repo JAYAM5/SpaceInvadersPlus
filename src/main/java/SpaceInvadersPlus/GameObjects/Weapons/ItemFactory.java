@@ -1,12 +1,5 @@
 package SpaceInvadersPlus.GameObjects.Weapons;
 
-import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelFour;
-import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelOne;
-import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelThree;
-import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelTwo;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ItemFactory {
