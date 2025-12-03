@@ -8,7 +8,6 @@ import SpaceInvadersPlus.GameObjects.Characters.CharacterFactory;
 import SpaceInvadersPlus.GameObjects.Characters.Player;
 import SpaceInvadersPlus.GameObjects.LevelStrategies.ILevel;
 import SpaceInvadersPlus.GameObjects.LevelStrategies.LevelFactory;
-import SpaceInvadersPlus.GameObjects.PlayerStrategies.FastPlayerMovement;
 import SpaceInvadersPlus.GameObjects.Projectiles.Projectile;
 
 import javax.swing.*;
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState extends JPanel {
-    private final int LIVES_Y_LOCATION = 655;
-    private final int LIVES_X_LOCATION = 20;
+    private final int SCORE_Y_LOCATION = 655;
+    private final int SCORE_X_LOCATION = 15;
     private Dimension d;
     private List<Alien> aliens;
     private Player player;
@@ -33,6 +32,7 @@ public class GameState extends JPanel {
     Boolean levelCompleted = false;
     AudioObserver audioObserver = new AudioObserver();
     Boolean groundCheck = false;
+    private int gameScore = 0;
 
     LevelFactory levelFactory = new LevelFactory();
     CharacterFactory characterFactory = new CharacterFactory();
@@ -117,6 +117,7 @@ public class GameState extends JPanel {
                         projectilesToRemove.add(projectile);
                         if(!alien.getIsItem()) {
                             levelEnemiesKilled += 1;
+                            gameScore += 10;
                         }
                         else{
                             player.setInventory(alien.dropItem());
@@ -283,11 +284,13 @@ public class GameState extends JPanel {
     private void drawHUD(Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
-        String message = "Lives remaining: " + (3 - player.getDeaths());
-
-        g.drawString(message, LIVES_X_LOCATION, LIVES_Y_LOCATION);
-
         g.drawLine(0, 625, 1000, 625);
+
+        String message = "Score: " + gameScore;
+        g.drawString(message, SCORE_X_LOCATION, SCORE_Y_LOCATION);
+
+        message = "Lives remaining: " + (3 - player.getDeaths());
+        g.drawString(message, SCORE_X_LOCATION + 610, SCORE_Y_LOCATION);
     }
 
     @Override
@@ -331,6 +334,11 @@ public class GameState extends JPanel {
         int x = (getWidth() - metrics.stringWidth(message)) / 2;
         int y = getHeight() / 2;
         g.drawString(message, x, y);
+
+        message = "Score: " + gameScore;
+        g.setFont(new Font("Arial", Font.BOLD, 27));
+        x = (getWidth() - metrics.stringWidth(message)) / 2 + 50;
+        g.drawString(message, x, y + 65);
     }
 
 
