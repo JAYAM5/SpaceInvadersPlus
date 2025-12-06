@@ -207,7 +207,6 @@ public class GameState extends JPanel {
         if (!player.explosionFinished()){
             isExplosionOccuring = true;
         }
-        System.out.println("Explosion is occurring is: " + isExplosionOccuring);
         return isExplosionOccuring;
     }
 

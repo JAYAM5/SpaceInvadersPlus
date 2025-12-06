@@ -19,7 +19,6 @@ public class BasePlayerShoot implements IShootingStrategy{
         if(shouldShoot()){
             returnList.add(projectileFactory.createBaseProjectile(ship.getXLocation(), ship.getYLocation()));
             lastShot = System.currentTimeMillis();
-            System.out.println("Projectile X is: " + ship.getXLocation());
             EventBusSingleton.getInstance().postMessage(EventType.Shoot, "Player is shooting.");
         }
 

@@ -12,7 +12,6 @@ public class SpaceInvadersPlus extends JFrame {
 
     public SpaceInvadersPlus() {
         initUI();
-        gameInit();
     }
 
     private void initUI() {
@@ -26,11 +25,6 @@ public class SpaceInvadersPlus extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
     }
-
-    private void gameInit() {
-
-    }
-
 
     public static void main (String[]args){
         EventQueue.invokeLater(() -> {

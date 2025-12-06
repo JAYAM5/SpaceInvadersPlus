@@ -10,15 +10,6 @@ import java.io.IOException;
 
 public class AudioObserver implements IObserver {
     private static final Logger log = LoggerFactory.getLogger(AudioObserver.class);
-//    private static AudioObserver instance;
-//
-//    private AudioObserver(){};
-//    public static AudioObserver getInstance(){
-//        if (instance == null){
-//            instance = new AudioObserver();
-//        }
-//            return instance;
-//    }
 
     @Override
     public void update(EventType eventType, String eventDescription) {

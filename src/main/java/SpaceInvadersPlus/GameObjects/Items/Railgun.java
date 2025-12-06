@@ -15,7 +15,7 @@ public class Railgun extends Item {
     private void initRailgun() {
         ImageIcon playerImg = new ImageIcon("src/images/railgun.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
     }
 
     public List<Projectile> shoot() {

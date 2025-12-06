@@ -13,14 +13,16 @@ public class WideshotPlayerShoot implements IShootingStrategy {
     ProjectileFactory projectileFactory = new ProjectileFactory();
     long lastShot;
     long shotCooldown = 400;
+    final Integer ADDED_PROJECTILE_INCREMENT = 5;
+
 
     public List<Projectile> shoot(Ship ship) {
         List<Projectile> returnList = new ArrayList<>();
 
         if(shouldShoot()) {
             returnList.add(projectileFactory.createBaseProjectile(ship.getXLocation(), ship.getYLocation()));
-            returnList.add(projectileFactory.createRightProjectile(ship.getXLocation() + 5, ship.getYLocation()));
-            returnList.add(projectileFactory.createLeftProjectile(ship.getXLocation() - 5, ship.getYLocation()));
+            returnList.add(projectileFactory.createRightProjectile(ship.getXLocation() + ADDED_PROJECTILE_INCREMENT, ship.getYLocation()));
+            returnList.add(projectileFactory.createLeftProjectile(ship.getXLocation() - ADDED_PROJECTILE_INCREMENT, ship.getYLocation()));
             lastShot = System.currentTimeMillis();
             EventBusSingleton.getInstance().postMessage(EventType.Shoot, "Player is shooting.");
         }

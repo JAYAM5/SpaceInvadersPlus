@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+
 public class Alien extends Ship {
 
     IMovementStrategy movementStrategy;
@@ -17,6 +18,7 @@ public class Alien extends Ship {
     Integer LEFT = -1;
     Integer direction = RIGHT;
     Boolean isItem = false;
+    final Integer IMAGE_SIZE = 20;
 
     public Alien(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy, Boolean defaultDirection){
         this.xLocation = xLocation;
@@ -51,7 +53,7 @@ public class Alien extends Ship {
 
         ImageIcon playerImg = new ImageIcon("src/images/base_alien.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
     }
 
 

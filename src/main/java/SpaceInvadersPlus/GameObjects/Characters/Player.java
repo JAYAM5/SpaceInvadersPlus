@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import java.util.List;
 
-//import main.SpaceInvadersPlus.GameObjects.PlayerStrategies.BasePlayerStrategy;
 import SpaceInvadersPlus.Events.EventBusSingleton;
 import SpaceInvadersPlus.Events.EventType;
 import SpaceInvadersPlus.GameObjects.PlayerStrategies.*;
@@ -21,6 +20,9 @@ public class Player extends Ship {
     Integer deathCount;
     Item inventory;
     private final int respawn_X = 360;
+    final Integer IMAGE_SIZE = 50;
+    StrategyFactory strategyFactory = new StrategyFactory();
+
 
 
     public Player(Integer xLocation, Integer yLocation, IMovementStrategy movementStrategy, IShootingStrategy shootingStrategy) {
@@ -54,7 +56,7 @@ public class Player extends Ship {
 
         ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
     }
 
     public List<Projectile> shoot() {
@@ -92,7 +94,7 @@ public class Player extends Ship {
     public void explode(){
         ImageIcon playerImg = new ImageIcon("src/images/explosion.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(EXPLOSION_IMAGE_SIZE, EXPLOSION_IMAGE_SIZE, Image.SCALE_SMOOTH);
         setExplosionStart();
         isExploding = true;
         isAlive = false;
@@ -110,23 +112,22 @@ public class Player extends Ship {
     }
 
     public void respawn(){
-        System.out.println("Respawning player");
         ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
         setX(respawn_X);
         isExploding = false;
         isAlive = true;
         setInventory(null);
-        setShootingStrategy(new BasePlayerShoot());
-        setMovementStrategy(new BasePlayerMovement());
+        setShootingStrategy(strategyFactory.createBasePlayerShoot());
+        setMovementStrategy(strategyFactory.createBasePlayerMovement());
     }
 
     public void respawnWithItem(){
         System.out.println("Respawning player");
         ImageIcon playerImg = new ImageIcon("src/images/base_player_ship.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
         setX(respawn_X);
         isExploding = false;
         isAlive = true;
@@ -144,20 +145,20 @@ public class Player extends Ship {
     public void setShootingStrategy(Item item){
         switch(item.getType()){
             case "Railgun":
-                setShootingStrategy(new RailgunPlayerShoot());
+                setShootingStrategy(strategyFactory.createRailgunPlayerShoot());
                 break;
             case "Trigun":
-                setShootingStrategy(new PlayerTriShoot());
+                setShootingStrategy(strategyFactory.createPlayerTriShoot());
                 break;
             case "Wideshot":
-                setShootingStrategy(new WideshotPlayerShoot());
+                setShootingStrategy(strategyFactory.createWideshotPlayerShoot());
                 break;
         }
     }
 
     public void setMovementStrategy(Item item){
         if (item.getType().equals("Shoe")) {
-            setMovementStrategy(new FastPlayerMovement());
+            setMovementStrategy(strategyFactory.createFastPlayerMovement());
         }
     }
 

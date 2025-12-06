@@ -20,6 +20,7 @@ public abstract class Ship extends GameObjects {
     final int explosionDuration = 500;
     final int rightEdge = 748;
     final int leftEdge = -10;
+    final Integer EXPLOSION_IMAGE_SIZE = 50;
 
 
     public List<Projectile> shoot() {
@@ -55,7 +56,7 @@ public abstract class Ship extends GameObjects {
     public void explode(){
         ImageIcon playerImg = new ImageIcon("src/images/explosion.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(EXPLOSION_IMAGE_SIZE, EXPLOSION_IMAGE_SIZE, Image.SCALE_SMOOTH);
         setExplosionStart();
         isExploding = true;
         isAlive = false;

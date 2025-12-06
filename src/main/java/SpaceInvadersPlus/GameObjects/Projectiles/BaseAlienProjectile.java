@@ -21,7 +21,7 @@ public class BaseAlienProjectile extends Projectile {
 
         ImageIcon projectileImg = new ImageIcon("src/images/base_projectile.png");
         this.image = projectileImg.getImage();
-        this.image = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
 
     }
 

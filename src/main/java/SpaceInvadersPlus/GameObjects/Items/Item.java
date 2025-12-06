@@ -14,6 +14,8 @@ public abstract class Item {
     Integer direction = RIGHT;
     final int leftEdge = -10;
     final int rightEdge = 748;
+    final int movementModifier = 2;
+    final Integer IMAGE_SIZE = 50;
 
     public String getType(){
         return null;
@@ -29,7 +31,7 @@ public abstract class Item {
 
     public void move() {
         setX(xLocation += direction * movementStrategy.getXMovementSpeed());
-        setY(yLocation += movementStrategy.getYMovementSpeed() / 2);
+        setY(yLocation += movementStrategy.getYMovementSpeed() / movementModifier);
         if (xLocation < leftEdge) {
             setX(leftEdge);
             direction = RIGHT;

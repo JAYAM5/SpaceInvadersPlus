@@ -23,7 +23,7 @@ public class Shoe extends Item {
     private void initShoe() {
         ImageIcon playerImg = new ImageIcon("src/images/shoe.png");
         this.image = playerImg.getImage();
-        this.image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.image = image.getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
     }
 
     public Image getImage(){

@@ -10,6 +10,7 @@ public abstract class Projectile extends GameObjects {
     Image image;
     Boolean isPlayerProjectile;
     Angle angle;
+    final Integer IMAGE_SIZE = 40;
 
     public enum Angle {
         NONE,

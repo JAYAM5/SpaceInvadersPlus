@@ -20,10 +20,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
 
-    // BDD testing libraries
-    testImplementation 'io.cucumber:cucumber-picocontainer:7.21.1'
-    testImplementation 'io.cucumber:cucumber-java:7.21.1'
-    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.21.1'
+//    // BDD testing libraries
+//    testImplementation 'io.cucumber:cucumber-picocontainer:7.21.1'
+//    testImplementation 'io.cucumber:cucumber-java:7.21.1'
+//    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.21.1'
 
     implementation 'org.slf4j:slf4j-api:2.0.12' // Or the latest stable version
 }
