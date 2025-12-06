@@ -14,7 +14,7 @@ public class AdapterTest {
     CharacterFactory characterFactory = new CharacterFactory();
 
     @Test
-    public void AdapterTest() {
+    public void AdapterRailgunTest() {
 
         Alien railgunAlien = characterFactory.createRailgunAdapter();
         Alien testAlien = characterFactory.createAlien();
